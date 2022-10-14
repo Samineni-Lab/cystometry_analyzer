@@ -4,7 +4,7 @@ import csv
 from functools import wraps
 
 import numpy as np
-from numpy.typing import NDArray
+import numpy.typing as npt
 from scipy.signal import savgol_filter, find_peaks
 
 import utils
@@ -69,8 +69,8 @@ class CystometryAnalyzer:
         self._data: CystometryData | None = None
         self._raw_data: tuple[list[float], list[float]] | None = None
 
-    def set_data(self, time_data: list[float] | NDArray[float],
-                 pressure_data: list[float] | NDArray[float]) -> CystometryAnalyzer:
+    def set_data(self, time_data: list[float] | npt.NDArray[np.float_],
+                 pressure_data: list[float] | npt.NDArray[np.float_]) -> CystometryAnalyzer:
         """
         Sets the raw data to be analyzed directly rather than loading it from a file. Data will not be validated
         automatically.

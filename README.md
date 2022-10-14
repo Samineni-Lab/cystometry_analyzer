@@ -2,6 +2,23 @@
 
 A program that analyzes cystometry data.
 
+## Environment Setup
+
+Create a new virtual environment using your preferred method. Python versions 3.9 and 3.10 have been tested 
+successfully. (Example setup using [Anaconda3](https://www.anaconda.com) shown below.)
+```shell
+conda create -n cysto_analzyer python=3.9
+conda activate cysto_analzyer
+```
+
+In your new Python environment, download requirements with `pip`:
+
+```shell
+pip install -r requirements.txt
+```
+
+This should install the necessary dependencies to use the cystometry analyzer.
+
 ## Use
 
 Analysis of cystometry data is done via the `CystometryAnalyzer` class defined in `analyzer.py`.

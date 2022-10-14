@@ -3,13 +3,14 @@ from __future__ import annotations
 from typing import Sized, Iterable, TypeVar, Generator
 
 import numpy as np
-from numpy.typing import NDArray
+import numpy.typing as npt
 
-_T = TypeVar("_T")
+
+_T = TypeVar("_T", bound=np.dtype)
 _S = TypeVar("_S")
 
 
-def moving_average(arr: Iterable[float], window: int = 10) -> NDArray[float]:
+def moving_average(arr: Iterable[float], window: int = 10) -> npt.NDArray[np.float_]:
     """
     Generates a moving average of arr with the size window.
 
@@ -21,7 +22,7 @@ def moving_average(arr: Iterable[float], window: int = 10) -> NDArray[float]:
     return np.convolve(arr, np.ones(window), 'valid') / window
 
 
-def sections(array: list[_T] | NDArray[_T], bounds: Iterable[slice]) -> Generator[NDArray[_T]]:
+def sections(array: npt.ArrayLike[_T], bounds: Iterable[slice]) -> Generator[npt.NDArray[_T]]:
     """
     Divides an array into sections determined by bounds.
 
@@ -50,7 +51,8 @@ def to_slices(l1: Iterable, l2: Iterable) -> list[slice]:
     return list(map(lambda x: slice(*x), zip(l1, l2)))
 
 
-def normalize_len(arr1: list[_T] | NDArray[_T], arr2: list[_S] | NDArray[_S]) -> tuple[NDArray[_T], NDArray[_S]]:
+def normalize_len(arr1: list[_T] | tuple[_T] | npt.NDArray[_T],
+                  arr2: list[_S] | tuple[_S] | npt.NDArray[_S]) -> tuple[npt.NDArray[_T], npt.NDArray[_S]]:
     """Ensures two arrays have the same length. Length is normalized to the smaller length.
 
     Args:
@@ -71,7 +73,7 @@ def normalize_len(arr1: list[_T] | NDArray[_T], arr2: list[_S] | NDArray[_S]) ->
     return np.array(arr1), np.array(arr2)
 
 
-def flatten(it: Iterable[Iterable]) -> list[any]:
+def flatten(it: Iterable[Iterable]) -> list:
     """Flattens a 2d list/array into a 1d list
 
     Args:
